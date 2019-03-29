@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2019 at 11:11 AM
+-- Generation Time: Mar 29, 2019 at 10:53 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -57,7 +57,32 @@ INSERT INTO `feeds` (`id`, `text`, `ImageURL`, `userid`) VALUES
 (18, 'test123123', '', 0),
 (19, 'jhjgjvj', '', 0),
 (20, 'jhjgjvj', '', 0),
-(21, 'test123', '', 0);
+(21, 'test123', '', 0),
+(22, 'asdasd', '', 0),
+(23, 'ssssssssss', '', 0),
+(24, 'asdasdsad', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL,
+  `imagename` text NOT NULL,
+  `userid` int(11) NOT NULL,
+  `type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`id`, `imagename`, `userid`, `type`) VALUES
+(1, '5c9dd25f79750.png', 0, 0),
+(2, '5c9dd286e38ea.png', 0, 0),
+(3, '5c9dd6a2e16ab.png', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +139,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `usertype`) VALUES
 (2, 'asdsad', '$2y$10$MyQU4xIJ6b3B4R9lb1EAweYjnqLY57NaPSD9YZ9IpPrhiHbvbZWOC', 0),
 (3, 'darwin1234', '$2y$10$hEw4Ya5QmV1O4edoho/oa.oub.7uZyWiabDaJEIM/K8MBKjn139m.', 1),
 (4, 'vanhalen', '$2y$10$4KerCmvfbfkt4k.YpAXun.ydATBLziIzO4uDsKFmqMDjGbYhmWfwu', 0),
-(5, 'test123', '$2y$10$HeJeypg2s07vX83XjwgRher4C1AmsGsEC7gNi04AZXdOhragJZ9Ka', 0);
+(5, 'test123', '$2y$10$HeJeypg2s07vX83XjwgRher4C1AmsGsEC7gNi04AZXdOhragJZ9Ka', 0),
+(6, 'darwinsese', '$2y$10$OGu5WwhFDhX6GnXrwxnd2uNa1gTTkqoV/WX1FtZYibVGKIypKrgjy', 0);
 
 --
 -- Indexes for dumped tables
@@ -124,6 +150,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `usertype`) VALUES
 -- Indexes for table `feeds`
 --
 ALTER TABLE `feeds`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `images`
+--
+ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -152,7 +184,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `feeds`
 --
 ALTER TABLE `feeds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+ALTER TABLE `images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -170,7 +208,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

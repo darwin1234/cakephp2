@@ -17,7 +17,10 @@ class UsersController extends AppController
 	public function initialize(){
 		parent::initialize();
 		$this->loadModel('Feeds');
+		$this->loadModel('Images');
+		echo "test1231223";
 	}
+	
 
     /**
      * Index method
@@ -26,10 +29,13 @@ class UsersController extends AppController
      */
     public function index()
     {
+		
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
     }
+	
+	
 
     /**
      * View method
@@ -112,25 +118,26 @@ class UsersController extends AppController
     }
 
     public function login(){
-       /* $session =  $this->request->session();
+        $session =  $this->request->session();
         if($this->request->is('post')){
           $user = $this->Auth->identify();
           if($user){
               $this->Auth->setUser($user);
               $session->write('role',$user['usertype']);
+			  $session->write('userid',$user['id']);
               return $this->redirect(['controller'=>'Dashboard']);
           }
 
           $this->Flash->error('Incorrect Login');
-        }*/
-		 if ($this->request->is('post') || $this->request->query('provider')) {
+        }
+		/* if ($this->request->is('post') || $this->request->query('provider')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('Invalid username or password, try again'));
-        }
+        }*/
     }
 
     public function logout()
@@ -176,7 +183,6 @@ class UsersController extends AppController
 		if($this->request->is('post')){
 			$newFeeds = $this->Feeds->newEntity();
 			$feeds =  $this->request->getData('Feeds');
-			//echo $feeds;
 			$newFeeds->text = $feeds;
 			if($this->Feeds->save($newFeeds))
 			{
@@ -197,5 +203,52 @@ class UsersController extends AppController
 		
 		die();
 		
+	}
+	
+	public function uploadImage(){
+		$image = $this->Images->newEntity();
+		$session = $this->request->session();
+		if($this->request->is('POST')){
+			
+			
+			list($type, $data) = explode(';', $_POST['imageFile']);
+			list(, $data) = explode(',', $data);
+			$file_data = base64_decode($data);
+
+			// Get file mime type
+			$finfo = finfo_open();
+			$file_mime_type = finfo_buffer($finfo, $file_data, FILEINFO_MIME_TYPE);
+
+			// File extension from mime type
+			if($file_mime_type == 'image/jpeg' || $file_mime_type == 'image/jpg')
+				$file_type = 'jpeg';
+			else if($file_mime_type == 'image/png')
+				$file_type = 'png';
+			else if($file_mime_type == 'image/gif')
+				$file_type = 'gif';
+			else 
+				$file_type = 'other';
+
+			// Validate type of file
+			if(in_array($file_type, [ 'jpeg', 'png', 'gif' ])) {
+				// Set a unique name to the file and save
+				$file_name = uniqid() . '.' . $file_type;
+				$image->imagename = $file_name;
+				$image->userid = $session->read('userid'); 
+				if($this->Images->save($image)){
+					file_put_contents('./files/'.$file_name,  $file_data);
+					echo "Success!";
+				}
+				//file_put_contents('./files/'.$file_name,  $file_data);
+			}
+			else {
+				
+				echo 'Error : Only JPEG, PNG & GIF allowed';
+			}
+			
+		}
+
+		
+		die();
 	}
 }

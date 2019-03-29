@@ -524,3 +524,12 @@ table td {
 }
 .singlefeeds{margin-bottom:30px;}
 .singlefeeds a{clear:both; display:block; text-decoration:none; color:#000; font-size:12px; }
+#imageUpload
+{
+    display: none;
+}
+
+#profileImage
+{
+    cursor: pointer;
+}

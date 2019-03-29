@@ -81,7 +81,10 @@ class AppController extends Controller
 		 $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
-                    'fields' => ['username' => 'email']
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password'
+                    ]
                 ],
                 'ADmad/HybridAuth.HybridAuth' => [
                     // All keys shown below are defaults
